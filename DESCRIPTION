@@ -1,0 +1,10 @@
+Package: modest
+Title: Model-Based Dose Escalation Using Shiny Tools
+Version: 0.1
+Date: 2017-06-26
+Authors@R: c(person("Philip", "Pallmann", role=c("aut", "cre"), email="p.pallmann@lancaster.ac.uk"), person("Fang", "Wan", role="aut"))
+Maintainer: Philip Pallmann <p.pallmann@lancaster.ac.uk>
+Description: User-friendly Shiny apps for designing and evaluating phase I cancer clinical trials, with the aim to estimate the maximum tolerated dose (MTD) of a novel drug, using a Bayesian logistic regression method.
+License: GPL-2
+Imports: knitr, shiny, shinyBS
+BugReports: https://github.com/PhilipPallmann/modest/issues/
