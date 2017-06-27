@@ -1,5 +1,5 @@
 Package: modest
-Title: Model-Based Dose Escalation Using Shiny Tools
+Title: Model-Based Dose Escalation Shiny Tools
 Version: 0.1
 Date: 2017-06-26
 Authors@R: c(person("Philip", "Pallmann", role=c("aut", "cre"), email="p.pallmann@lancaster.ac.uk"), person("Fang", "Wan", role="aut"))
