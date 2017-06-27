@@ -26,4 +26,8 @@ Zhou Y, Whitehead J (2003) Practical implementation of Bayesian dose-escalation 
 \author{
 Philip Pallmann (\email{p.pallmann@lancaster.ac.uk})
 }
+\examples{\donttest{
+design()
+conduct()
+}}
 \keyword{misc}
