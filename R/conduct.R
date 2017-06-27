@@ -1,5 +1,5 @@
 conduct <- function(){
-  appDir <- system.file("Conduct", "app", package="modest")
+  appDir <- system.file("Conduct", package="modest")
   if(appDir==""){
     stop("Could not find example directory. Try re-installing `modest`.", call.=FALSE)
   }

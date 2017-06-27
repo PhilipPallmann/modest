@@ -1,5 +1,4 @@
 \name{apps}
-\alias{apps}
 \alias{design}
 \alias{conduct}
 \title{
