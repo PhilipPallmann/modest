@@ -6,6 +6,17 @@ Please report bugs and unexpected behaviour to Philip Pallmann <p.pallmann@lanca
 
 #########################
 
+Version 0.2 (4 August 2017)
+
+- New spreadsheet interface for manual data entry into 'Design' module.
+- Informative error messages added.
+- Pointwise 95% confidence bands added to dose-toxicity curves.
+- New stopping rule based on the number of consecutive patients receiving the same dose.
+- Two vignettes added.
+- Various minor bug fixes and improvements.
+
+#########################
+
 Version 0.1 (26 June 2017)
 
 - Initial release.
