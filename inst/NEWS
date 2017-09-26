@@ -6,6 +6,14 @@ Please report bugs and unexpected behaviour to Philip Pallmann <p.pallmann@lanca
 
 #########################
 
+Version 0.3 (26 September 2017)
+
+- 'Show another run' button to generate multiple simulated examples.
+- Download button for detailed simulation results in a csv file.
+- Minor changes to the appearance of various graphs.
+
+#########################
+
 Version 0.2 (4 August 2017)
 
 - New spreadsheet interface for manual data entry into 'Design' module.

@@ -76,7 +76,7 @@ The green curve represents the dose-toxicity model as derived from the prior inf
 
 ### 2. Example
 
-One dose-escalation study is simulated under the current parameter settings, prior information, escalation and stopping rules, assuming the specified simulation model describes the true dose-toxicity relationship. The graphs are meant to be an illustrative example of what the study *could* look like. However, since it is merely a single simulation run, it is *not* necessarily representative of the current scenario, neither should it be viewed as a 'typical' study under this scenario.
+One dose-escalation study is simulated under the current parameter settings, prior information, escalation and stopping rules, assuming the specified simulation model describes the true dose-toxicity relationship. The graphs are meant to be an illustrative example of what the study *could* look like. However, since it is merely a single simulation run, it is *not* necessarily representative of the current scenario, neither should it be viewed as a 'typical' study under this scenario. Click the button at the bottom (as often as desired) to generate different example runs.
 
 ### 3. Scenarios
 
@@ -151,7 +151,7 @@ When multiple simulations are conducted for different settings, further rows are
 
 ### 5. Downloads
 
-A CSV design file for subsequent use in the 'Conduct' app can be downloaded. Also a PDF report summarising the design, prior information, and simulation results is available for download.
+A CSV design file for subsequent use in the 'Conduct' app can be downloaded. Also a PDF report summarising the design, prior information, and simulation results is available for download. Detailed results of the simulations run under the current scenario can be downloaded as a csv file, too.
 
 ## References
 

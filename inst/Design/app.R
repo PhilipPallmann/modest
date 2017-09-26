@@ -195,7 +195,8 @@ ui <- fluidPage(
                       bsAlert("alertExample3"),
                       bsAlert("alertSimulationsX"),
                       textOutput("ExampleText"),
-                      plotOutput("ExamplePlot")),
+                      plotOutput("ExamplePlot", height=800, width=800),
+                      actionButton("anotherrun", "Show another run")),
              tabPanel("Scenarios",
                       hr(),
                       bsAlert("alertScenarios1"),
@@ -241,7 +242,11 @@ ui <- fluidPage(
                       hr(),
                       h4("Report"),
                       p("Download a pdf report summarising the input parameters and key characteristics of the design."),
-                      downloadButton("report")),
+                      downloadButton("report"),
+                      hr(),
+                      h4("Simulations"),
+                      p("Download a csv file of the detailed simulation results under the current scenario."),
+                      downloadButton("simulations")),
              tabPanel("References",
                       hr(),
                       p("This is an implementation of Bayesian dose escalation as proposed in:"),
@@ -444,17 +449,17 @@ server <- function(input, output, session){
           
           "Here are plots of one set of random study data generated under the current simulation scenario: 
           doses administered and (non-)toxicities observed for individual patients (top left); how often 
-          each dose was administered (top right); target dose (red) and optimal dose estimates (black) with 
-          95% CIs (dashed) after each cohort (bottom)."
+          each dose was administered (top right); target dose and optimal dose estimates with 
+          95% CIs after each cohort (bottom)."
         }
         
-      }
+        }
       
-    }
+      }
     
-  })
+      })
   
-  output$ExamplePlot <- renderPlot({
+  examplot <- eventReactive(input$anotherrun, {
     
     doo <- as.numeric(unlist(strsplit(input$doses, ",")))
     
@@ -467,8 +472,8 @@ server <- function(input, output, session){
       #if(input$howto==TRUE){
       #  thetatrue <- c(input$theta1, input$theta2)
       #}else{
-        thetatrue <- theta_compute(risk_high=input$failrate2true, risk_low=input$failrate1true,
-                                   TD_high=input$dose2true, TD_low=input$dose1true)
+      thetatrue <- theta_compute(risk_high=input$failrate2true, risk_low=input$failrate1true,
+                                 TD_high=input$dose2true, TD_low=input$dose1true)
       #}
       
       if(input$consec==TRUE){
@@ -484,8 +489,48 @@ server <- function(input, output, session){
       
     }
     
-  }, height=800, width=800)
+  })
   
+  output$ExamplePlot <- renderPlot({
+    
+    if(input$anotherrun==FALSE){
+      
+      doo <- as.numeric(unlist(strsplit(input$doses, ",")))
+      
+      if(is.na(sum(as.numeric(unlist(strsplit(input$doses, ",")))))==FALSE &
+         input$dose1 >= min(doo) &
+         input$dose2 <= max(doo)){
+        
+        prior <- rbind(c(input$obs1, input$dose1, input$failrate1), c(input$obs2, input$dose2, input$failrate2))
+        
+        #if(input$howto==TRUE){
+        #  thetatrue <- c(input$theta1, input$theta2)
+        #}else{
+        thetatrue <- theta_compute(risk_high=input$failrate2true, risk_low=input$failrate1true,
+                                   TD_high=input$dose2true, TD_low=input$dose1true)
+        #}
+        
+        if(input$consec==TRUE){
+          maxseq <- input$consecutive
+        }else{
+          maxseq <- 1e6
+        }
+        
+        plot(simulate_escalation(theta_true=thetatrue, r=input$target_level, prior=prior, dose_set=doo,
+                                 sample_size=input$n_patients, next_cohortsize=input$cohort_size, cstop=input$cstop,
+                                 allocation_rule=input$gainfunction, prior_type=NULL, lowstart=input$lowstart,
+                                 noskip=input$noskip, notoxesc=input$notoxesc, maxseq=maxseq))
+        
+      }
+      
+    }else{
+      
+      examplot()
+      
+    }
+    
+  }, height=800, width=800)
+
   output$ScenariosText1 <- renderText({
     
     doo <- as.numeric(unlist(strsplit(input$doses, ",")))
@@ -707,7 +752,8 @@ server <- function(input, output, session){
        input$dose2 <= max(doo) &
        w$round > 0){
       
-      "Here are detailed results of all simulation runs under the current scenario."
+      "Here are detailed results of all simulation runs under the current scenario.
+      You can download them as a csv file (see 'Downloads' tab)."
       
     }
     
@@ -843,7 +889,7 @@ server <- function(input, output, session){
       levels(all_sto)[levels(all_sto) %in% c("Stop recruitment: the maximum number of patients has been reached.",
                                              "Stop recruitment: the maximum number of patients, and the desired level of accuracy, have both been reached.",
                                              "Stop recruitment: the maximum number of consecutive patients at the same dose, and the maximum number of patients, have both been reached.",
-                                             "Stop recruitment: the maximum number of consecutive patients at the same dose, the maximum number of patients, and the desired level of accuracy, have all been reached.")] <- "Max. number"
+                                             "Stop recruitment: the maximum number of consecutive patients at the same dose, the maximum number of patients, and the desired level of accuracy, have all been reached.")] <- "Max. n"
       levels(all_sto)[levels(all_sto) %in% c("Stop recruitment: the desired level of accuracy has been reached.",
                                              "Stop recruitment: the maximum number of patients, and the desired level of accuracy, have both been reached.",
                                              "Stop recruitment: the maximum number of consecutive patients at the same dose, and the desired level of accuracy, have both been reached.",
@@ -851,7 +897,7 @@ server <- function(input, output, session){
       levels(all_sto)[levels(all_sto) %in% c("Stop recruitment: the maximum number of consecutive patients at the same dose has been reached.",
                                              "Stop recruitment: the maximum number of consecutive patients at the same dose, and the desired level of accuracy, have both been reached.",
                                              "Stop recruitment: the maximum number of consecutive patients at the same dose, and the maximum number of patients, have both been reached.",
-                                             "Stop recruitment: the maximum number of consecutive patients at the same dose, the maximum number of patients, and the desired level of accuracy, have all been reached.")] <- "Consec. number"
+                                             "Stop recruitment: the maximum number of consecutive patients at the same dose, the maximum number of patients, and the desired level of accuracy, have all been reached.")] <- "Consec. n"
       levels(all_sto)[levels(all_sto) %in% c("Stop recruitment: no safe dose could be identified.",
                                              "Stop recruitment: no safe dose could be identified because the slope of the dose-response model was negative.",
                                              "Stop recruitment: no safe dose could be identified because the slope of the dose-response model was zero")] <- "Safety"
@@ -1014,6 +1060,16 @@ server <- function(input, output, session){
                      ifelse(input$consec==TRUE, input$consecutive, 1e6),
                      as.numeric(unlist(strsplit(input$doses, ","))))
       out = write.csv(inputdata, file)
+      file.copy(out, file)
+    },
+    contentType = 'text/csv'
+  )
+  
+  output$simulations <- downloadHandler(
+    filename = function(){paste('Simulations', Sys.Date(), '.csv', sep='')},
+    content = function(file){
+      outputdata <- v$da
+      out = write.csv(outputdata, file)
       file.copy(out, file)
     },
     contentType = 'text/csv'

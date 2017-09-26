@@ -1,7 +1,7 @@
 Package: modest
-Title: Model-Based Dose Escalation Shiny Tools
-Version: 0.2
-Date: 2017-08-04
+Title: Model-Based Dose Escalation Tools
+Version: 0.3
+Date: 2017-09-26
 Authors@R: c(person("Philip", "Pallmann", role=c("aut", "cre"), email="p.pallmann@lancaster.ac.uk"), person("Fang", "Wan", role="aut"))
 Description: User-friendly Shiny apps for designing and evaluating phase I cancer clinical trials, with the aim to estimate the maximum tolerated dose (MTD) of a novel drug, using a Bayesian decision procedure based on logistic regression.
 License: GPL-2
