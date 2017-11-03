@@ -2,7 +2,7 @@ library("knitr")
 library("shiny")
 library("shinyBS")
 
-library("DT")
+#library("DT")
 
 #source("../mainDoseEscalation.R")
 source("mainDoseEscalation.R")
