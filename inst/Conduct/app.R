@@ -127,7 +127,7 @@ ui <- fluidPage(
                         HTML("<a href='http://www.birmingham.ac.uk/staff/profiles/cancer-genomic/yap-christina.aspx'>Christina Yap,</a>"),
                         HTML("<a href='http://www.ed.ac.uk/cancer-centre/research/clive-group'>Sally Clive</a>")),
                       p("Programmers:",
-                        HTML("<a href='http://www.lancaster.ac.uk/maths/about-us/people/philip-pallmann'>Philip Pallmann,</a>"),
+                        HTML("<a href='http://www.cardiff.ac.uk/people/view/975927-pallmann-philip'>Philip Pallmann,</a>"),
                         HTML("<a href='http://www.lancaster.ac.uk/maths/about-us/people/fang-wan'>Fang Wan</a>")),
                       hr(),
                       p("This app was built with",
@@ -140,7 +140,7 @@ ui <- fluidPage(
                         "and",
                         HTML("<a href='https://rstudio.github.io/DT/'>DT.</a>")),
                       p("Feedback and bug reports welcome, please email to: ",
-                        HTML("<a href='mailto:p.pallmann@lancaster.ac.uk'>p.pallmann@lancaster.ac.uk</a>"))
+                        HTML("<a href='mailto:pallmannp@cardiff.ac.uk'>pallmannp@cardiff.ac.uk</a>"))
              )
            )      
     )
