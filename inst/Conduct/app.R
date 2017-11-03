@@ -99,7 +99,7 @@ ui <- fluidPage(
                       hr(),
                       uiOutput("RecommendationText1"),
                       hr(),
-                      withMathJax(textOutput("RecommendationText2")),
+                      textOutput("RecommendationText2"),
                       p(""),
                       tableOutput("RecommendationTable"),
                       textOutput("RecommendationText3"),
@@ -517,8 +517,7 @@ server <- function(input, output, session){
       return(NULL)
     }else{
       "The logistic model used to describe the dose-toxicity relationship has the form 
-      $$\\log\\left(\\frac{\\text{P(toxicity)}}{1 - \\text{P(toxicity)}}\\right) = \\text{a} + \\text{b} 
-      \\times \\log(\\text{dose}).$$ The values of the parameters a (intercept) and b (slope) are displayed 
+      logit(P(toxicity)) = a + b log(dose). The values of the parameters a (intercept) and b (slope) are displayed 
       for the prior and posterior models."
     }
     

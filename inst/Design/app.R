@@ -183,7 +183,7 @@ ui <- fluidPage(
                       bsAlert("alertModel2"),
                       bsAlert("alertModel3"),
                       bsAlert("alertSimulationsX"),
-                      withMathJax(textOutput("ModelText1")),
+                      textOutput("ModelText1"),
                       tableOutput("ModelTable"),
                       hr(),
                       textOutput("ModelText2"),
@@ -312,8 +312,7 @@ server <- function(input, output, session){
           closeAlert(session, "AlertModel3")
           
           "The logistic model used to describe the dose-toxicity relationship has the form 
-          $$\\log\\left(\\frac{\\text{P(toxicity)}}{1 - \\text{P(toxicity)}}\\right) = \\text{a} + \\text{b} 
-          \\times \\log(\\text{dose}).$$ The values of the parameters a (intercept) and b (slope) are displayed 
+          logit(P(toxicity)) = a + b log(dose). The values of the parameters a (intercept) and b (slope) are displayed 
           for the simulation model (representing the assumed true dose-toxicity relationship) and for the model 
           based on the prior information."
         }
@@ -1030,11 +1029,21 @@ server <- function(input, output, session){
       barplot(table(factor(v$dat[, "SampleSize"])), xlab="Sample Size", ylab="Trials", main="Sample Sizes", las=1)
       barplot(table(factor(v$dat[, "Toxicities"])), xlab="Toxicities", ylab="Trials", main="Toxicities Observed", las=1)
       barplot(table(factor(v$dat[, "Stopping"])), xlab="Reason", ylab="Trials", main="Stopping Reasons", las=1)
+      
       if("None" %in% levels(factor(v$dat[, "Recommendation"]))){
-        barplot(table(relevel(factor(v$dat[, "Recommendation"]), ref="None")), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
+        fff <- factor(v$dat[, "Recommendation"],
+                      levels=c("None", sort(as.numeric(levels(factor(v$dat[, "Recommendation"]))[-length(levels(factor(v$dat[, "Recommendation"])))]))))
+        barplot(table(fff), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
       }else{
-        barplot(table(factor(v$dat[, "Recommendation"])), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
+        fff <- factor(v$dat[, "Recommendation"], levels=sort(as.numeric(levels(factor(v$dat[, "Recommendation"])))))
+        barplot(table(fff), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
       }
+      
+      #if("None" %in% levels(factor(v$dat[, "Recommendation"]))){
+      #  barplot(table(relevel(factor(v$dat[, "Recommendation"]), ref="None")), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
+      #}else{
+      #  barplot(table(factor(v$dat[, "Recommendation"])), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
+      #}
       
     }
     

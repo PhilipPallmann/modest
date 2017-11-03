@@ -272,11 +272,20 @@ barplot(table(factor(v$dat[, "SampleSize"])), xlab="Sample Size", ylab="Trials",
 barplot(table(factor(v$dat[, "Toxicities"])), xlab="Toxicities", ylab="Trials", main="Toxicities Observed", las=1)
 barplot(table(factor(v$dat[, "Stopping"])), xlab="Reason", ylab="Trials", main="Stopping Reasons", las=1)
 if("None" %in% levels(factor(v$dat[, "Recommendation"]))){
-  barplot(table(relevel(factor(v$dat[, "Recommendation"]), ref="None")), xlab="Dose", ylab="Trials",
-          main="Final Dose Recommendations", las=1)
+  fff <- factor(v$dat[, "Recommendation"],
+                levels=c("None", sort(as.numeric(levels(factor(v$dat[, "Recommendation"]))[-length(levels(factor(v$dat[, "Recommendation"])))]))))
+  barplot(table(fff), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
 }else{
-  barplot(table(factor(v$dat[, "Recommendation"])), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
+  fff <- factor(v$dat[, "Recommendation"], levels=sort(as.numeric(levels(factor(v$dat[, "Recommendation"])))))
+  barplot(table(fff), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", las=1)
 }
+
+#if("None" %in% levels(factor(v$dat[, "Recommendation"]))){
+#  barplot(table(relevel(factor(v$dat[, "Recommendation"]), ref="None")), xlab="Dose", ylab="Trials",
+#          main="Final Dose Recommendations", las=1)
+#}else{
+#  barplot(table(factor(v$dat[, "Recommendation"])), xlab="Dose", ylab="Trials", main="Final Dose Recommendations", #las=1)
+#}
 @
 
 \clearpage
