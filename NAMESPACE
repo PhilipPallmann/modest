@@ -1,2 +1,2 @@
-import(DT, knitr, rhandsontable, shiny, shinyBS)
+import(knitr, rhandsontable, shiny, shinyBS)
 export(design, conduct)
