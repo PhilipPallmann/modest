@@ -4,9 +4,9 @@ author: "Philip Pallmann"
 #date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  \VignetteIndexEntry{Evaluating a Model-Based Dose-Escalation Study}
-  \VignetteEngine{knitr::rmarkdown}
-  \VignetteEncoding{UTF-8}
+  %\VignetteIndexEntry{Evaluating a Model-Based Dose-Escalation Study}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 The aim of a phase I dose-escalation study is to estimate the maximum tolerated dose ([MTD](https://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=546597)) of a novel drug or treatment. In practice this often means to identify a dose for which the probability of a patient developing a dose-limiting toxicity ([DLT](https://www.cancer.gov/publications/dictionaries/cancer-terms?cdrid=44170)) is close to a prespecified target level, typically between 0.20 and 0.33 in cancer trials.
